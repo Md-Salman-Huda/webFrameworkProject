@@ -1,0 +1,283 @@
+{{!-- <h3>Movie List</h3>
+
+<table class="table table-stripe table-hover">
+    <thead>
+        <tr>
+            <th>Plot</th>
+            <th>Runtime</th>
+            <th>Title</th>
+            <th>Released</th>
+            <th>Cast</th>
+            <th>Genres</th>
+            <th>Poster</th>
+            <th>Last Updated</th>
+            <th>Languages</th>
+            <th>Directors</th>
+            <th>Rated</th>
+            <th>Awards</th>
+            <th>Year</th>
+            <th>IMDb</th>
+            <th>Countries</th>
+            <th>Type</th>
+            <th>Tomatoes</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{txt.plot}}</td>
+            <td>{{txt.runtime}}</td>
+            <td>{{txt.title}}</td>
+            <td>{{txt.released}}</td>
+            <td>
+                <ul>
+                    {{#each txt.cast}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {{#each txt.genres}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+            <td>
+                <img src="{{txt.poster}}" alt="Movie Poster" style="max-width: 100px; max-height: 150px;">
+            </td>
+            <td>{{txt.lastupdated}}</td>
+            <td>
+                <ul>
+                    {{#each txt.languages}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {{#each txt.directors}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+            <td>{{txt.rated}}</td>
+            <td>
+                <p>Wins: {{txt.awards.wins}}</p>
+                <p>Nominations: {{txt.awards.nominations}}</p>
+                <p>{{txt.awards.text}}</p>
+            </td>
+            <td>{{txt.year}}</td>
+            <td>
+                <p>IMDb Rating: {{txt.imdb.rating}}</p>
+                <p>IMDb Votes: {{txt.imdb.votes}}</p>
+                <p>IMDb ID: {{txt.imdb.id}}</p>
+            </td>
+            <td>
+                <ul>
+                    {{#each txt.countries}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+            <td>{{txt.type}}</td>
+            <td>
+                {{#if txt.tomatoes.viewer}}
+                <p>Tomatoes Viewer Rating: {{txt.tomatoes.viewer.rating}}</p>
+                <p>Tomatoes Viewer Num Reviews: {{txt.tomatoes.viewer.numReviews}}</p>
+                <p>Tomatoes Viewer Meter: {{txt.tomatoes.viewer.meter}}</p>
+                <p>Tomatoes Viewer DVD: {{txt.tomatoes.viewer.dvd}}</p>
+                <p>Tomatoes Viewer Last Updated: {{txt.tomatoes.viewer.lastUpdated}}</p>
+                {{else}}
+                <p>No Tomatoes Viewer Information</p>
+                {{/if}}
+            </td>
+            <td>
+                <button class="btn btn-outline-primary"><a href='/update/movie'>Update</a></button>
+                <button class="btn btn-outline-danger"><a href='/delete/movie'>Delete</a></button>
+            </td>
+        </tr>
+    </tbody>
+</table> --}}
+
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+    <a class="navbar-brand" href="/">The Breno Movie App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/add">Add</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/delete">Delete</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/update">Update</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='/api/Movies'>List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sbp">Search by plot</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="/movieform">Get Movies</a>
+        </li>
+      </ul>
+    </div>
+     <div>
+        <li class="nav-item">
+          <a class="btn btn-danger" href="/logout">Logout</a>
+        </li>
+    </div>
+  </div>
+</nav>
+ <div class="container">
+    <div class="row">
+        <div class="col-md-6 p-6" style="margin-top: 25px; padding:20px">
+
+<h3>
+Movie List</h3>
+
+<table class="table table-stripe table-hover ">
+    <thead class=" ">
+        <tr>
+            <th>ID</th>
+            <th>Plot</th>
+            <th>Runtime</th>
+            <th>Title</th>
+            <th>Released</th>
+            <th>cast</th>
+            <th>Genres</th>
+            <th>Poster</th>
+            <th>Last Updated</th>
+            <th>Languages</th>
+            <th>Directors</th>
+            <th>Rated</th>
+            <th>awards</th>
+            <th>year</th>
+            <th>imdb</th>
+            <th>Countries</th>
+            <th>Type</th>
+            <th>Tomatoes</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each txt}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.plot}}</td>
+            <td>{{this.runtime}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.released}}</td>
+            <td>
+            <ul>
+                {{#each this.cast}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </td>
+            <td>
+            <ul>
+                {{#each this.genres}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </td>
+            
+                <td>
+            <img src="{{this.poster}}" alt="Movie Poster" style="max-width: 100px; max-height: 150px;">
+        
+            </td>
+            <td>{{this.lastupdated}}</td>
+            <td>
+            <ul>
+                {{#each this.languages}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </td>
+            <td>
+            <ul>
+                {{#each this.directors}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </td>
+            <td>{{this.rated}}</td>
+             <td>
+             <p>Wins: {{this.awards.wins}}</p>
+             <p>Nominations: {{this.awards.nominations}}</p>
+             <p>{{this.awards.text}}</p>
+            </td>
+            <td>{{this.year}}</td>
+             <td>
+            <p>IMDb Rating: {{this.imdb.rating}}</p>
+            <p>IMDb Votes: {{this.imdb.votes}}</p>
+            <p>IMDb ID: {{this.imdb.id}}</p>
+            </td>
+            <td>
+            <ul>
+                {{#each this.countries}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </td>
+            <td>{{this.type}}</td>
+            <td>
+            {{#if this.tomatoes.viewer}}
+                <p>Tomatoes Viewer Rating: {{this.tomatoes.viewer.rating}}</p>
+                <p>Tomatoes Viewer Num Reviews: {{this.tomatoes.viewer.numReviews}}</p>
+                <p>Tomatoes Viewer Meter: {{this.tomatoes.viewer.meter}}</p>
+                <p>Tomatoes Viewer DVD: {{this.tomatoes.viewer.dvd}}</p>
+                <p>Tomatoes Viewer Last Updated: {{this.tomatoes.viewer.lastUpdated}}</p>
+            {{else}}
+                <p>No Tomatoes Viewer Information</p>
+            {{/if}}
+        </td>
+
+
+
+
+
+
+            <td>
+                <form action="/upd" method="post">
+               <input type="hidden" name="_id" value="{{this._id}}">
+                <button class="btn btn-outline-primary ">Update</button></form>
+                {{!-- <button class="btn btn-outline-primary "><a href='/update'>Update</a></button> --}}
+                 <form action="/deletez" method="post">
+               <input type="hidden" name="_id" value="{{this._id}}">
+                <button class="btn btn-outline-primary ">Delete</button></form>
+                 {{!-- <button class="btn btn-outline-danger"><a href='/delete'>Delete</a></button> --}}
+            </td>
+            
+
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+ </div>
+    </div>
+    </div>
+    
+
+<footer class="footer mt-auto py-3 bg-light fixed-bottom ">
+  <div class="container text-center">
+    <span class="text-muted"> &copy; 2023 The Breno Movie App. All rights reserved.</span>
+  </div>
+</footer>

@@ -1,0 +1,420 @@
+
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+    <a class="navbar-brand" href="/">The Breno Movie App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/add">Add</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/delete">Delete</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/update">Update</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='/api/Movies'>List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sbp">Search by plot</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="/movieform">Get Movies</a>
+        </li>
+      </ul>
+    </div>
+     <div>
+        <li class="nav-item">
+          <a class="btn btn-danger" href="/logout">Logout</a>
+        </li>
+    </div>
+  </div>
+</nav>
+
+ <div class="container">
+    <div class="row">
+        <div class="col-md-6 p-6" style="margin-top: 25px; padding:20px">
+<h3>{{viewTitle}}</h3>
+<form action="/update/moviez" method="post">
+    <div class="form-group">
+        <label for="movieId">Movie ID:</label>
+        <input type="text" class="form-control" name="movieId" placeholder="Enter the Movie ID" value="{{movies._id}}">
+    </div>
+
+    <div class="form-group">
+        <label for="plot">Plot</label>
+        <input type="text" class="form-control" name="plot" placeholder="Plot" value="{{movies.plot}}">
+    </div>
+
+    <div class="form-group">
+        <label for="genres">Genres (comma-separated)</label>
+        {{!-- <input type="text" class="form-control" name="genres" placeholder="Genres" value="{{movies.genres.join(', ')}}"> --}}
+        {{!-- <input type="text" class="form-control" name="genres" placeholder="Genres" value="{{movies.genres.join(',')}}"> --}}
+        <input type="text" class="form-control" name="genres" placeholder="Genres" 
+        value="{{#each movies.genres}}
+        {{this}},
+        {{/each}}">
+        {{!-- <div class="form-group">
+    <label for="genres">Genres (comma-separated)</label>
+    <ul>
+        {{#each movies.genres}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</div> --}}
+
+
+
+    </div>
+
+    <div class="form-group">
+        <label for="runtime">Runtime</label>
+        <input type="number" class="form-control" name="runtime" placeholder="Run time" value="{{movies.runtime}}">
+    </div>
+
+    <div class="form-group">
+        <label for="cast">Cast (comma-separated)</label>
+        <input type="text" class="form-control" name="cast" placeholder="Cast" 
+         value="{{#each movies.cast}}
+        {{this}},
+        {{/each}}">
+    </div>
+
+    <div class="form-group">
+        <label for="num_mflix_comments">Number of Comments</label>
+        <input type="number" class="form-control" name="num_mflix_comments" placeholder="Number of Comments" value="{{movies.num_mflix_comments}}">
+    </div>
+
+    <div class="form-group">
+        <label for="poster">Poster</label>
+        <input type="text" class="form-control" name="poster" placeholder="Poster URL" value="{{movies.poster}}">
+    </div>
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" placeholder="Title" value="{{movies.title}}">
+    </div>
+
+    <div class="form-group">
+        <label for="fullplot">Full Plot</label>
+        <input type="textarea" class="form-control" name="fullplot" placeholder="Full Plot" value="{{movies.fullplot}}">
+    </div>
+
+    <div class="form-group">
+        <label for="languages">Languages (comma-separated)</label>
+        <input type="text" class="form-control" name="languages" placeholder="Languages"
+          value="{{#each movies.languages}}
+        {{this}},
+        {{/each}}">
+    </div>
+
+    <div class="form-group">
+        <label for="released">Release Date</label>
+        <input type="date" class="form-control" name="released" placeholder="Release Date" value="{{movies.released}}">
+    </div>
+
+    <div class="form-group">
+        <label for="directors">Directors (comma-separated)</label>
+        <input type="text" class="form-control" name="directors" placeholder="Directors" 
+         value="{{#each movies.directors}}
+        {{this}},
+        {{/each}}">
+    </div>
+
+    <div class="form-group">
+        <label for="writers">Writers (comma-separated)</label>
+        <input type="text" class="form-control" name="writers" placeholder="Writers" 
+         value="{{#each movies.writers}}
+        {{this}},
+        {{/each}}">
+    </div>
+
+    <div class="form-group">
+        <label for="awards_wins">Awards Wins</label>
+        <input type="number" class="form-control" name="awards.wins" placeholder="Awards Wins" value="{{movies.awards.wins}}">
+    </div>
+
+    <div class="form-group">
+        <label for="awards_nominations">Awards Nominations</label>
+        <input type="number" class="form-control" name="awards.nominations" placeholder="Awards Nominations" value="{{movies.awards.nominations}}">
+    </div>
+
+    <div class="form-group">
+        <label for="awards_text">Awards Text</label>
+        <input type="text" class="form-control" name="awards.text" placeholder="Awards Text" value="{{movies.awards.text}}">
+    </div>
+
+    <div class="form-group">
+        <label for="lastupdated">Last Updated</label>
+        <input type="date" class="form-control" name="lastupdated" placeholder="Last Updated" value="{{movies.lastupdated}}">
+    </div>
+
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" name="year" placeholder="Year" value="{{movies.year}}">
+    </div>
+
+    <div class="form-group">
+        <label for="imdb_rating">IMDb Rating</label>
+        <input type="number" class="form-control" name="imdb.rating" placeholder="IMDb Rating" value="{{movies.imdb.rating}}">
+    </div>
+
+    <div class="form-group">
+        <label for="imdb_votes">IMDb Votes</label>
+        <input type="number" class="form-control" name="imdb.votes" placeholder="IMDb Votes" value="{{movies.imdb.votes}}">
+    </div>
+
+    <div class="form-group">
+        <label for="imdb_id">IMDb ID</label>
+        <input type="number" class="form-control" name="imdb.id" placeholder="IMDb ID" value="{{movies.imdb.id}}">
+    </div>
+
+    <div class="form-group">
+        <label for="countries">Countries (comma-separated)</label>
+        <input type="text" class="form-control" name="countries" placeholder="Countries"
+          value="{{#each movies.countries}}
+        {{this}},
+        {{/each}}">
+    </div>
+
+    <div class="form-group">
+        <label for="type">Type</label>
+        <input type="text" class="form-control" name="type" placeholder="Type" value="{{movies.type}}">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_rating">Tomatoes Viewer Rating</label>
+        <input type="number" class="form-control" name="tomatoes.viewer.rating" placeholder="Tomatoes Viewer Rating" value="{{movies.tomatoes.viewer.rating}}">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_numReviews">Tomatoes Viewer Num Reviews</label>
+        <input type="number" class="form-control" name="tomatoes.viewer.numReviews" placeholder="Tomatoes Viewer Num Reviews" value="{{movies.tomatoes.viewer.numReviews}}">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_meter">Tomatoes Viewer Meter</label>
+        <input type="number" class="form-control" name="tomatoes.viewer.meter" placeholder="Tomatoes Viewer Meter" value="{{movies.tomatoes.viewer.meter}}">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_dvd">Tomatoes Viewer DVD</label>
+        <input type="date" class="form-control" name="tomatoes.viewer.dvd" placeholder="Tomatoes Viewer DVD" value="{{movies.tomatoes.viewer.dvd}}">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_lastUpdated">Tomatoes Viewer Last Updated</label>
+        <input type="date" class="form-control" name="tomatoes.viewer.lastUpdated" placeholder="Tomatoes Viewer Last Updated" value="{{movies.tomatoes.viewer.lastUpdated}}">
+    </div>
+
+    <div class="form-row pt-3 d-md-flex mr-md-3 align-items-center">
+        <div class="form-group">
+            <button type="submit" class="btn btn-info">Submit</button>
+        </div>
+    </div>
+</form>
+
+{{!-- <form action="/update/moviez" method="post">
+    <div class=" form-group">
+        <div class="pt-3">
+        <label for ='movieId'>Movie ID:</label>
+	 <input type="text" class="form-control" name="movieId" placeholder="Enter the Movie ID" value={{movies._id}}><br>
+     </div>
+
+    <div class="form-group">
+        <label for="plot">Plot</label>
+        <input type="text" class="form-control" name="plot" value="{{movie.plot}}" placeholder="Plot">
+    </div>
+
+    <div class="form-group">
+        <label for="genres">Genres (comma-separated)</label>
+        <input type="text" class="form-control" name="genres" placeholder="Genres">
+    </div>
+
+    <div class="form-group">
+        <label for="runtime">Runtime</label>
+        <input type="number" class="form-control" name="runtime" placeholder="Run time">
+    </div>
+
+    <div class="form-group">
+        <label for="cast">Cast (comma-separated)</label>
+        <input type="text" class="form-control" name="cast" placeholder="Cast">
+    </div>
+
+    <div class="form-group">
+        <label for="num_mflix_comments">Number of Comments</label>
+        <input type="number" class="form-control" name="num_mflix_comments" placeholder="Number of Comments">
+    </div>
+
+    <div class="form-group">
+        <label for="poster">Poster</label>
+        <input type="text" class="form-control" name="poster" placeholder="Poster URL">
+    </div>
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" placeholder="Title">
+    </div>
+
+    <div class="form-group">
+        <label for="fullplot">Full Plot</label>
+        <input type="text" class="form-control" name="fullplot" placeholder="Full Plot">
+    </div>
+
+    <div class="form-group">
+        <label for="languages">Languages (comma-separated)</label>
+        <input type="text" class="form-control" name="languages" placeholder="Languages">
+    </div>
+
+    <div class="form-group">
+        <label for="released">Release Date</label>
+        <input type="date" class="form-control" name="released" placeholder="Release Date">
+    </div>
+
+    <div class="form-group">
+        <label for="directors">Directors (comma-separated)</label>
+        <input type="text" class="form-control" name="directors" placeholder="Directors">
+    </div>
+
+    <div class="form-group">
+        <label for="writers">Writers (comma-separated)</label>
+        <input type="text" class="form-control" name="writers" placeholder="Writers">
+    </div>
+
+    <div class="form-group">
+        <label for="awards_wins">Awards Wins</label>
+        <input type="number" class="form-control" name="awards.wins" placeholder="Awards Wins">
+    </div>
+
+    <div class="form-group">
+        <label for="awards_nominations">Awards Nominations</label>
+        <input type="number" class="form-control" name="awards.nominations" placeholder="Awards Nominations">
+    </div>
+
+    <div class="form-group">
+        <label for="awards_text">Awards Text</label>
+        <input type="text" class="form-control" name="awards.text" placeholder="Awards Text">
+    </div>
+
+    <div class="form-group">
+        <label for="lastupdated">Last Updated</label>
+        <input type="date" class="form-control" name="lastupdated" placeholder="Last Updated">
+    </div>
+
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" name="year" placeholder="Year">
+    </div>
+
+    <div class="form-group">
+        <label for="imdb_rating">IMDb Rating</label>
+        <input type="number" class="form-control" name="imdb.rating" placeholder="IMDb Rating">
+    </div>
+
+    <div class="form-group">
+        <label for="imdb_votes">IMDb Votes</label>
+        <input type="number" class="form-control" name="imdb.votes" placeholder="IMDb Votes">
+    </div>
+
+    <div class="form-group">
+        <label for="imdb_id">IMDb ID</label>
+        <input type="number" class="form-control" name="imdb.id" placeholder="IMDb ID">
+    </div>
+
+    <div class="form-group">
+        <label for="countries">Countries (comma-separated)</label>
+        <input type="text" class="form-control" name="countries" placeholder="Countries">
+    </div>
+
+    <div class="form-group">
+        <label for="type">Type</label>
+        <input type="text" class="form-control" name="type" placeholder="Type">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_rating">Tomatoes Viewer Rating</label>
+        <input type="number" class="form-control" name="tomatoes.viewer.rating" placeholder="Tomatoes Viewer Rating">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_numReviews">Tomatoes Viewer Num Reviews</label>
+        <input type="number" class="form-control" name="tomatoes.viewer.numReviews" placeholder="Tomatoes Viewer Num Reviews">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_meter">Tomatoes Viewer Meter</label>
+        <input type="number" class="form-control" name="tomatoes.viewer.meter" placeholder="Tomatoes Viewer Meter">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_dvd">Tomatoes Viewer DVD</label>
+        <input type="date" class="form-control" name="tomatoes.viewer.dvd" placeholder="Tomatoes Viewer DVD">
+    </div>
+
+    <div class="form-group">
+        <label for="tomatoes_viewer_lastUpdated">Tomatoes Viewer Last Updated</label>
+        <input type="date" class="form-control" name="tomatoes.viewer.lastUpdated" placeholder="Tomatoes Viewer Last Updated">
+    </div>
+
+    <div class="form-row pt-3 d-md-flex mr-md-3 align-items-center">
+        <div class="form-group">
+            <button type="submit" class="btn btn-info">Submit</button>
+        </div>
+    </div>
+</form>
+
+ </div>
+    </div>
+    </div>
+     --}}
+
+<footer class="footer mt-auto py-3 bg-light fixed-bottom ">
+  <div class="container text-center">
+    <span class="text-muted"> &copy; 2023 The Breno Movie App. All rights reserved.</span>
+  </div>
+</footer>
+
+{{!-- <h3>{{viewTitle}}</h3>
+<form action="/update/moviez" method="post">
+    <div class=" form-group">
+        <div class="pt-3">
+        <label for ='movieId'>Movie ID:</label>
+	 <input type="text" class="form-control" name="movieId" placeholder="Enter the Movie ID"><br>
+     </div>
+        <div class="pt-3">
+        <label>Plot</label>
+        <input type="text" class="form-control", name="plot" placeholder="plot" value="{{txt.plot}}"> 
+        </div>
+        <div class="pt-3">
+         <label>Runtime</label>
+        <input type="number" class="form-control", name="runtime" placeholder="runtime" value="{{txt.runtime}}"> 
+        </div>
+
+            <div class="form-group col-md-6 ">
+                <label>Title</label>
+                <input type="text" class="form-control", name="title" placeholder="title" value="{{txt.title}}"> 
+            </div>
+            <div>
+                <label>Release Date:</label>
+                 <input type="date" name="released"  class="form-control" placeholder="Enter the released date" value="{{txt.date}}">
+            </div>
+    </div>
+    <div class="form-row pt-3 d-md-flex mr-md-3  align-items-center">
+    <div class="form-group  ">
+        <button type="submit" class="btn btn-info ">Submit</button>
+    </div>
+    <div class="form-group justify-content-between ">
+        <a href="/" class="btn btn-secondary">View List</a>
+    </div>
+    </div>
+</form> --}}
